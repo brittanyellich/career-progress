@@ -1,0 +1,52 @@
+{
+  "username": "<YourGitHubUsername>",
+  "repo": "<YourCareerRepoName>",
+  "companyName": "<YourCompany'sGitHubName>",
+  "currentCareerLadderFileName": "",
+  "nextCareerLadderFileName": "",
+  "bragDocSections": [
+    {
+      "id": 1,
+      "name": "Projects",
+      "description": "For each project, what was your contribution and what is the impact?"
+    },
+    {
+      "id": 2,
+      "name": "Collaboration and mentorship",
+      "description": "How have you extended your impact via others? Ex. Pairing, code reviews, mentoring, internal talks, shared notes"
+    },
+    {
+      "id": 3,
+      "name": "Design and documentation",
+      "description": "List any design docs or documentation you have worked on"
+    },
+    {
+      "id": 4,
+      "name": "Company building",
+      "description": "How have you helped the company overall? Ex. Interviewing, improving processes"
+    },
+    {
+      "id": 5,
+      "name": "Learning and development",
+      "description": "What skills or knowledge have you attained recently?"
+    },
+    {
+      "id": 6,
+      "name": "Outside of work",
+      "description": "What are you working on outside of work to have impact on the industry?"
+    },
+    {
+      "id": 7,
+      "name": "Feedback received",
+      "description": "Any feedback that you have received this week"
+    }
+  ],
+  "time": [
+    {
+      "id": 1,
+      "name": "Second Half 2024",
+      "startDate": "2024-06-01",
+      "endDate": "2024-12-31"
+    }
+  ]
+}

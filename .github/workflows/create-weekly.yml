@@ -1,0 +1,54 @@
+name: Create Weekly Issue
+
+on:
+#   schedule:
+#     - cron: 0 17 * * 0 # every Sunday at 3pm EST
+    
+  workflow_dispatch:
+
+jobs:
+  create-weekly-issue:
+    permissions: write-all
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: get last issue
+        run: echo "PREV_ISSUE_URL=$(gh issue list --label weekly -s open -L 1 --json url --jq '.[0].url')" >> ${GITHUB_ENV}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: close previous issue
+        run: gh issue close ${{ env.PREV_ISSUE_URL }} -r "completed"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: get username from data/config.json
+        run: echo "USERNAME=$(jq -r '.username' data/config.json)" >> ${GITHUB_ENV}
+
+      - name: set date
+        run: echo "DATE=$(date --rfc-3339=date)" >> ${GITHUB_ENV}
+        
+      - name: create issue
+        run: gh issue create --title "${{ env.DATE }} Weekly" --assignee ${{ env.USERNAME }} --body "This issue will be updated on a daily basis to reflect progress during the week!" --label "weekly"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: install dependencies
+        run: npm install
+
+      - name: add accomplishments to current progress doc
+        run: npm run update-progress-weekly
+        env:
+          PAT: ${{ secrets.PAT }}
+          PREV_ISSUE_URL: ${{ env.PREV_ISSUE_URL }}
+          DATE: ${{ env.DATE }}
+        
+      - name: push updates
+        run: |
+          git config --global user.name '${{ env.USERNAME }}'
+          git config --global user.email '${{ env.USERNAME }}@users.noreply.github.com'
+          git add progress
+          git commit -m "updated progress doc"
+          git push

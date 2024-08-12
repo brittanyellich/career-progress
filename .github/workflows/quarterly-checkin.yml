@@ -1,0 +1,36 @@
+name: Quarterly Checkin Issue
+
+on:
+#   schedule:
+#     - cron: 0 17 1 */3 * # Quarterly on the 1st at 3pm EST
+    
+  workflow_dispatch:
+
+jobs:
+  create-quarterly-issue:
+    permissions: write-all
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: get last issue
+        run: echo "PREV_ISSUE_URL=$(gh issue list --label quarterly -s open -L 1 --json url --jq '.[0].url')" >> ${GITHUB_ENV}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: close previous issue
+        run: gh issue close ${{ env.PREV_ISSUE_URL }} -r "completed"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: get username from data/config.json
+        run: echo "USERNAME=$(jq -r '.username' data/config.json)" >> ${GITHUB_ENV}
+
+      - name: set date
+        run: echo "DATE=Q$(( ($(date +%-m)-1)/3+1 ))-$(date +%Y)" >> ${GITHUB_ENV}
+        
+      - name: create issue
+        run: gh issue create --title "${{ env.DATE }} Quarterly" --assignee ${{ env.USERNAME }} --body "Hey @${{ env.USERNAME }}! It's time for your quarterly checkin! Use the `/current_level_progress` and `/next_level_progress` slash commands to grade your progress against your current and next career levels." --label "quarterly"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

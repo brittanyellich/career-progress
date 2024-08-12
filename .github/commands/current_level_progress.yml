@@ -1,0 +1,24 @@
+trigger: current_level_progress
+title: Current Level Career Progress
+surfaces:
+  - issue
+description: Reflect on progress against your current level on your career ladder
+steps:
+  - type: form
+    style: embedded
+    body:
+      - type: markdown
+        attributes:
+          value: '## Current level'
+  - type: fill
+    template: >
+      ## Current level
+
+      {{ "| Id | Section | Description | Status |" }}
+
+      {{ "| ----- | ----- | ---- | ---- |" }}
+
+
+      data: current_level_progress
+
+      version: 1

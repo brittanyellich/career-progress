@@ -1,0 +1,34 @@
+
+name: Update Career Progress File
+
+on:
+    push:
+        paths:
+            - 'data/*.csv'
+      
+    workflow_dispatch:
+
+jobs:
+  update-career-progress-file:
+    permissions: write-all
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: install dependencies
+        run: npm install
+      
+      - name: run update script
+        run: node script/update-career-progress-file.js
+
+      - name: get username from data/config.json
+        run: echo "USERNAME=$(jq -r '.username' data/config.json)" >> ${GITHUB_ENV}
+        
+      - name: push updates
+        run: |
+          git config --global user.name '${{ env.USERNAME }}'
+          git config --global user.email '${{ env.USERNAME }}@users.noreply.github.com'
+          git add .
+          git commit -m "update career progress command"
+          git push

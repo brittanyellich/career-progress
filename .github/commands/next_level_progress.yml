@@ -1,0 +1,24 @@
+trigger: next_level_progress
+title: Next Level Career Progress
+surfaces:
+  - issue
+description: Reflect on progress against your next level on your career ladder
+steps:
+  - type: form
+    style: embedded
+    body:
+      - type: markdown
+        attributes:
+          value: '## Next level'
+  - type: fill
+    template: >
+      ## Next level
+
+      {{ "| Id | Section | Description | Status |" }}
+
+      {{ "| ----- | ----- | ---- | ---- |" }}
+
+
+      data: next_level_progress
+
+      version: 1

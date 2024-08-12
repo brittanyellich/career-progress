@@ -1,0 +1,18 @@
+{
+  "name": "career-progress",
+  "version": "1.0.0",
+  "description": "A common saying at GitHub is the following",
+  "main": "index.js",
+  "scripts": {
+    "update-career-progress-file": "node script/update-career-progress-file.js",
+    "update-progress-weekly": "node script/update-progress-weekly.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "csv-parser": "^3.0.0",
+    "js-yaml": "^4.1.0",
+    "octokit": "^4.0.2"
+  }
+}

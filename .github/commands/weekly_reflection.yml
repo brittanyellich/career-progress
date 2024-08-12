@@ -1,0 +1,85 @@
+trigger: weekly_reflection
+title: Weekly Reflection
+surfaces:
+  - issue
+description: Reflect on the week
+
+steps:
+  - type: form
+    style: embedded
+    body:
+      - type: textarea
+        attributes:
+          label: Projects
+          description: "For each project, what was your contribution and what is the impact?"
+          placeholder: "- project x"
+      - type: textarea
+        attributes:
+          label: Collaboration
+          description: "How have you extended your impact via others? Ex. Pairing, code reviews, mentoring, internal talks, shared notes"
+          placeholder: "- paired with x"
+      - type: textarea
+        attributes:
+          label: Documentation
+          description: "List any design docs or documentation you have worked on"
+          placeholder: "- updated x doc"
+      - type: textarea
+        attributes:
+          label: Company
+          description: "How have you helped the company overall? Ex. Interviewing, improving processes"
+          placeholder: "- led x panel for day of learning"
+      - type: textarea
+        attributes:
+          label: Learning
+          description: "What skills or knowledge have you attained recently?"
+          placeholder: "- read x"
+      - type: textarea
+        attributes:
+          label: Outside
+          description: "What are you working on outside of work to have impact on the industry?"
+          placeholder: "- participated in x"
+      - type: textarea
+        attributes:
+          label: Feedback
+          description: "Any feedback that you have received this week"
+          placeholder: "- x said y"
+  # Output sections from entered values
+  - type: fill
+    template: |
+
+      {% if data.Projects != "" %}
+      ## Projects
+      {{ data.Projects }}
+      {% endif %}
+      
+      {% if data.Collaboration != "" %}
+      ## Collaboration and mentorship
+      {{ data.Collaboration }}
+      {% endif %}
+
+      {% if data.Documentation != "" %}
+      ## Design and documentation
+      {{ data.Documentation }}
+      {% endif %}
+
+      {% if data.Company != "" %}
+      ## Company building
+      {{ data.Company }}
+      {% endif %}
+
+      {% if data.Learning != "" %}
+      ## Learning and development
+      {{ data.Learning }}
+      {% endif %}
+
+      {% if data.Outside != "" %}
+      ## Outside of work
+      {{ data.Outside }}
+      {% endif %}
+
+      {% if data.Feedback != "" %}
+      ## Feedback received
+      {{ data.Feedback }}
+      {% endif %}
+      data: weekly_reflection
+      

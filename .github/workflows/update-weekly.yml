@@ -1,0 +1,19 @@
+name: Update Weekly Issue
+
+on:
+#   schedule:
+#     - cron: 0 12 * * 1,2,3,4,5 # every weekday at 8am EST
+
+  workflow_dispatch:
+
+jobs:
+  update-weekly-issue:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: run script/update-weekly
+        run: ./script/update-weekly.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
