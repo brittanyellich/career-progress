@@ -114,7 +114,7 @@ async function main() {
             if (commentDataMap[section]) {
                 // filter blank lines
                 const cleanedCommentData = commentDataMap[section].split('\n').filter(line => line !== '' && line !== '\n').map(line => {
-                    return line.startsWith(" ") ? `${line.trim()}\n` : `${line.trim()} ${issueText}\n`;
+                    return line.startsWith(" ") ? `${line}\n` : `${line} ${issueText}\n`;
                 }).join('');
                 currentFileDataMap[section] = cleanedCommentData + currentFileDataMap[section];
             }
