@@ -41,13 +41,17 @@ async function main() {
     const currentFileName = `./progress/${toFileName(currentTimeName, config)}.md`;
     // Check if current file name exists, if not create it
     if (!fs.existsSync(currentFileName)) {
-        fs.writeFileSync(currentFileName, (getBlankDocTemplate(currentTimeName)));
+        fs.writeFileSync(currentFileName, (getBlankDocTemplate(currentTimeName, config)));
     }
 
     // Get the comments from the github issue
     const repo = config.repo;
     const owner = config.username;
     const issueUrl = process.env.PREV_ISSUE_URL;
+    if (!issueUrl) {
+        console.error('Issue URL is not defined.');
+        return;
+    }
     const issueNumber = issueUrl.split('/').pop();
     let commentBody;
     let issueName;
