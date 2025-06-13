@@ -1,8 +1,8 @@
-name: Create Weekly Issue
+name: Create Weekly
 
 on:
-#   schedule:
-#     - cron: 0 17 * * 0 # every Sunday at 3pm EST
+  schedule:
+    - cron: 0 17 * * 0 # every Sunday at 3pm EST
     
   workflow_dispatch:
 
@@ -20,7 +20,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       - name: close previous issue
-        run: gh issue close ${{ env.PREV_ISSUE_URL }} -r "completed"
+        run: |
+          if [ -n "${{ env.PREV_ISSUE_URL }}" ]; then
+          gh issue close ${{ env.PREV_ISSUE_URL }} -r "completed"
+            else
+          echo "No previous issue found, skipping close step."
+            fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
